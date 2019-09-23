@@ -127,6 +127,7 @@
   <ItemGroup>
     <ClInclude Include="BfsStrategy.h" />
     <ClInclude Include="DfsStrategy.h" />
+    <ClInclude Include="MyLibrary.h" />
     <ClInclude Include="PuzzleState.h" />
     <ClInclude Include="PuzzleStrategy.h" />
   </ItemGroup>

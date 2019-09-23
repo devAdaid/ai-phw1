@@ -39,6 +39,21 @@ PuzzleState::~PuzzleState()
 {
 }
 
+void PuzzleState::reset(int* inputs)
+{
+	depth = 0;
+
+	for (int i = 0; i < 9; i++)
+	{
+		board[i] = inputs[i];
+
+		if (board[i] == 0)
+		{
+			blankIndex = i;
+		}
+	}
+}
+
 void PuzzleState::print()
 {
 	cout << "State: " << endl

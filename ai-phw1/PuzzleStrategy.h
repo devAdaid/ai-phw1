@@ -12,6 +12,8 @@ public:
 
 	PuzzleStrategy();
 	~PuzzleStrategy();
+
+	void reset();
 	void printResult();
 	virtual bool solvePuzzle(PuzzleState* puzzle);
 };

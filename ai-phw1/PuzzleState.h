@@ -23,6 +23,7 @@ public:
 	PuzzleState(const PuzzleState& state);
 	~PuzzleState();
 
+	void reset(int* inputs);
 	void print();
 	int getId();
 	bool canMove(int moveDirection);

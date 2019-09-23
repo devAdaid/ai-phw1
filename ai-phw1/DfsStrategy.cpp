@@ -14,6 +14,8 @@ DfsStrategy::~DfsStrategy()
 
 bool DfsStrategy::solvePuzzle(PuzzleState* puzzle)
 {
+	reset();
+
 	bool result = false;
 	stack<PuzzleState*> openStack;
 	set<int> visited;
