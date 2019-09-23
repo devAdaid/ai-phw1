@@ -4,6 +4,7 @@
 
 DfsStrategy::DfsStrategy()
 {
+	name = "DFS";
 }
 
 
@@ -52,7 +53,6 @@ bool DfsStrategy::solvePuzzle(PuzzleState* puzzle)
 		// if answer, return success
 		if (v->isAnswer())
 		{
-			v->print();
 			solutionLength = v->depth;
 			return true;
 		}

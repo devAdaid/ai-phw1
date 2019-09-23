@@ -14,6 +14,7 @@ int main()
 	DfsStrategy *dfs = new DfsStrategy();
 
 	dfs->solvePuzzle(puzzle);
+	dfs->printResult();
 
 	delete puzzle;
 	delete dfs;

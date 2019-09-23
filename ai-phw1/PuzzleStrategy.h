@@ -1,15 +1,18 @@
 #pragma once
 #include"PuzzleState.h"
+#include<string>
 
 class PuzzleStrategy
 {
 public:
-	int visitedCount = 0;
-	int maxOpenSize = 0;
-	int solutionLength = 0;
+	unsigned int visitedCount = 0;
+	unsigned int maxOpenSize = 0;
+	unsigned int solutionLength = 0;
+	string name;
 
 	PuzzleStrategy();
 	~PuzzleStrategy();
+	void printResult();
 	virtual bool solvePuzzle(PuzzleState* puzzle);
 };
 
