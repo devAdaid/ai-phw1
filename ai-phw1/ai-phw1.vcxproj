@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AStarStrategy.cpp" />
     <ClCompile Include="BfsStrategy.cpp" />
     <ClCompile Include="DfsStrategy.cpp" />
     <ClCompile Include="main.cpp" />
@@ -125,6 +126,7 @@
     <ClCompile Include="PuzzleStrategy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AStarStrategy.h" />
     <ClInclude Include="BfsStrategy.h" />
     <ClInclude Include="DfsStrategy.h" />
     <ClInclude Include="MyLibrary.h" />

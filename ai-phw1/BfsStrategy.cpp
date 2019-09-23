@@ -1,5 +1,5 @@
 #include "BfsStrategy.h"
-#include<queue>
+#include <queue>
 #include <set>
 
 using namespace std;

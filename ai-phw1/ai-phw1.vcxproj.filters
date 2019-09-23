@@ -30,6 +30,9 @@
     <ClCompile Include="DfsStrategy.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="AStarStrategy.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PuzzleStrategy.h">
@@ -45,6 +48,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MyLibrary.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="AStarStrategy.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

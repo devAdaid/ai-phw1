@@ -1,6 +1,8 @@
 #pragma once
-#include"PuzzleStrategy.h"
-class DfsStrategy : public PuzzleStrategy
+#include "PuzzleStrategy.h"
+
+class DfsStrategy : 
+	public PuzzleStrategy
 {
 public:
 	DfsStrategy();

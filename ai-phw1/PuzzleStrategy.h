@@ -1,6 +1,6 @@
 #pragma once
-#include"PuzzleState.h"
-#include<string>
+#include "PuzzleState.h"
+#include <string>
 
 class PuzzleStrategy
 {
