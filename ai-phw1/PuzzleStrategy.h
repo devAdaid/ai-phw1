@@ -4,16 +4,18 @@
 
 class PuzzleStrategy
 {
-public:
+protected:
 	unsigned int visitedCount = 0;
 	unsigned int maxOpenSize = 0;
 	unsigned int solutionLength = 0;
 	string name;
 
+	void reset();
+
+public:
 	PuzzleStrategy();
 	~PuzzleStrategy();
 
-	void reset();
 	void printResult();
 	virtual bool solvePuzzle(PuzzleState& puzzle);
 };

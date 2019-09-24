@@ -20,10 +20,10 @@ bool BfsStrategy::solvePuzzle(PuzzleState& puzzle)
 	reset();
 
 	bool result = false;
-	queue<PuzzleState*> open;
+	queue<PuzzleState> open;
 	set<int> visited;
 
-	open.push(new PuzzleState(puzzle));
+	open.push(PuzzleState(puzzle));
 
 	while (visitedCount < INT_MAX)
 	{
@@ -34,7 +34,7 @@ bool BfsStrategy::solvePuzzle(PuzzleState& puzzle)
 		}
 
 		// Find v not visited
-		PuzzleState* v = nullptr;
+		PuzzleState v;
 		int vId = 0;
 		bool alreadyVisited = false;
 		do
@@ -48,7 +48,7 @@ bool BfsStrategy::solvePuzzle(PuzzleState& puzzle)
 
 			v = open.front();
 			open.pop();
-			vId = v->getId();
+			vId = v.getId();
 			alreadyVisited = visited.find(vId) != visited.end();
 
 		} while (alreadyVisited);
@@ -56,9 +56,9 @@ bool BfsStrategy::solvePuzzle(PuzzleState& puzzle)
 		visitedCount += 1;
 
 		// If answer, return success
-		if (v->isAnswer())
+		if (v.isAnswer())
 		{
-			solutionLength = v->depth;
+			solutionLength = v.depth;
 			return true;
 		}
 
@@ -68,16 +68,13 @@ bool BfsStrategy::solvePuzzle(PuzzleState& puzzle)
 		// Expand v
 		for (int i = 0; i < DIRECTION_MAX; i++)
 		{
-			if (v->canMove(i))
+			if (v.canMove(i))
 			{
-				open.push(v->getMovedState(i));
+				open.push(v.getMovedState(i));
 			}
 		}
 
-		delete v;
-		v = nullptr;
-
-	} // Cost is max
+	} // Cost reaches max
 
 	cout << "Fail to find Answer: visit count is max" << endl << endl;
 	return false;

@@ -87,11 +87,11 @@ bool AStarStrategy::solvePuzzle(PuzzleState& puzzle)
 		{
 			if (v.canMove(i))
 			{
-				open.push(*(v.getMovedState(i)));
+				open.push(v.getMovedState(i));
 			}
 		}
 
-	} // Cost is max
+	} // Cost reaches max
 
 	cout << "Fail to find Answer: visit count is max" << endl << endl;
 	return false;

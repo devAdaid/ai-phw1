@@ -152,21 +152,20 @@ bool PuzzleState::moveBy(int moveDirection)
 	return canMoveToState;
 }
 
-PuzzleState* PuzzleState::getMovedState(int moveDirection)
+PuzzleState PuzzleState::getMovedState(int moveDirection)
 {
-	PuzzleState* newState = new PuzzleState(*this);
+	PuzzleState newState = PuzzleState(*this);
 
-	bool moveResult = newState->moveBy(moveDirection);
+	bool moveResult = newState.moveBy(moveDirection);
 
 	// 이동할 수 없으면 해제
 	if (!moveResult)
 	{
-		delete newState;
 		newState = nullptr;
 	}
 
-	newState->depth = depth + 1;
-	newState->estimatedCost = newState->calculateEstimatedCost();
+	newState.depth = depth + 1;
+	newState.estimatedCost = newState.calculateEstimatedCost();
 
 	return newState;
 }
