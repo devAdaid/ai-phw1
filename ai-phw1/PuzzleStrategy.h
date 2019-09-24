@@ -14,6 +14,7 @@ protected:
 
 public:
 	PuzzleStrategy();
+	PuzzleStrategy(string strategyName);
 	~PuzzleStrategy();
 
 	void printResult();

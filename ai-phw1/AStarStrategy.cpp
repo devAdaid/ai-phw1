@@ -11,6 +11,11 @@ AStarStrategy::AStarStrategy()
 	name = "A*";
 }
 
+AStarStrategy::AStarStrategy(int(*hFunc)(PuzzleState&), string hName)
+{
+	name = "A* - " + hName;
+	heuristicFuntion = hFunc;
+}
 
 AStarStrategy::~AStarStrategy()
 {
@@ -23,7 +28,9 @@ bool AStarStrategy::solvePuzzle(PuzzleState& puzzle)
 	priority_queue<PuzzleState, vector<PuzzleState>, greater<PuzzleState>> open;
 	map<int, int> closed;
 
-	open.push(PuzzleState(puzzle));
+	PuzzleState puzzleClone = PuzzleState(puzzle);
+	puzzleClone.estimatedCost = heuristicFuntion(puzzleClone);
+	open.push(puzzleClone);
 
 	while (visitedCount < INT_MAX)
 	{
@@ -87,7 +94,9 @@ bool AStarStrategy::solvePuzzle(PuzzleState& puzzle)
 		{
 			if (v.canMove(i))
 			{
-				open.push(v.getMovedState(i));
+				PuzzleState* movedState = &(v.getMovedState(i));
+				movedState->estimatedCost = heuristicFuntion(*movedState);
+				open.push(*movedState);
 			}
 		}
 

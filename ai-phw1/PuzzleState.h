@@ -15,13 +15,11 @@ enum MoveDirection
 class PuzzleState
 {
 private:
-	int board[9] = { 0 };
-	int blankIndex = 0;
-
 	bool moveBy(int moveDirection);
-	int getManhattanDistanceAt(int idx);
 
 public:
+	int board[9] = { 0 };
+	int blankIndex = 0;
 	int depth = 0;
 	int estimatedCost = 0;
 
@@ -39,5 +37,6 @@ public:
 	bool canMove(int moveDirection);
 	bool isAnswer();
 	int calculateEstimatedCost();
+	int getManhattanDistanceAt(int idx);
 	PuzzleState getMovedState(int moveDirection);
 };

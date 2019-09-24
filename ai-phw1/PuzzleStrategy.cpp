@@ -7,6 +7,10 @@ PuzzleStrategy::PuzzleStrategy()
 {
 }
 
+PuzzleStrategy::PuzzleStrategy(string strategyName)
+{
+	name = strategyName;
+}
 
 PuzzleStrategy::~PuzzleStrategy()
 {
