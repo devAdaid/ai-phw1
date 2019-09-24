@@ -7,5 +7,7 @@ class AStarStrategy :
 public:
 	AStarStrategy();
 	~AStarStrategy();
+
+	bool solvePuzzle(PuzzleState* puzzle) override;
 };
 

@@ -1,6 +1,7 @@
 #include "PuzzleState.h"
 #include <iostream>
 #include <algorithm>
+#include <cmath>
 
 using namespace std;
 
@@ -11,27 +12,20 @@ PuzzleState::PuzzleState()
 
 PuzzleState::PuzzleState(int* inputs)
 {
-	for (int i = 0; i < 9; i++)
-	{
-		board[i] = inputs[i];
-
-		if (board[i] == 0)
-		{
-			blankIndex = i;
-		}
-	}
+	reset(inputs);
 }
 
 
 PuzzleState::PuzzleState(const PuzzleState& state)
 {
-	blankIndex = state.blankIndex;
-	depth = state.depth;
-
 	for (int i = 0; i < 9; i++)
 	{
 		board[i] = state.board[i];
 	}
+
+	blankIndex = state.blankIndex;
+	depth = state.depth;
+	estimatedCost = state.estimatedCost;
 }
 
 
@@ -39,10 +33,17 @@ PuzzleState::~PuzzleState()
 {
 }
 
+bool PuzzleState::operator <(const PuzzleState& p) const {
+	if (estimatedCost < p.estimatedCost)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void PuzzleState::reset(int* inputs)
 {
-	depth = 0;
-
 	for (int i = 0; i < 9; i++)
 	{
 		board[i] = inputs[i];
@@ -52,6 +53,9 @@ void PuzzleState::reset(int* inputs)
 			blankIndex = i;
 		}
 	}
+
+	depth = 0;
+	estimatedCost = calculateEstimatedCost();
 }
 
 void PuzzleState::print()
@@ -65,7 +69,7 @@ void PuzzleState::print()
 int PuzzleState::getId()
 {
 	int result = 0;
-	for (int i = 8; i >= 0; i--)
+	for (int i = 0; i < 9; i++)
 	{
 		result *= 10;
 		result += board[i];
@@ -78,16 +82,16 @@ bool PuzzleState::canMove(int moveDirection)
 	bool result = false;
 	switch (moveDirection)
 	{
-	case LEFT:
+	case DIRECTION_LEFT:
 		result = ((blankIndex % 3) != 0);
 		break;
-	case RIGHT:
+	case DIRECTION_RIGHT:
 		result = ((blankIndex % 3) != 2);
 		break;
-	case UP:
+	case DIRECTION_UP:
 		result = (blankIndex > 2);
 		break;
-	case DOWN:
+	case DIRECTION_DOWN:
 		result = (blankIndex < 6);
 		break;
 	}
@@ -118,16 +122,16 @@ bool PuzzleState::moveBy(int moveDirection)
 		// Calculate target index to be swapped with blank
 		switch (moveDirection)
 		{
-		case LEFT:
+		case DIRECTION_LEFT:
 			targetIndex = blankIndex - 1;
 			break;
-		case RIGHT:
+		case DIRECTION_RIGHT:
 			targetIndex = blankIndex + 1;
 			break;
-		case UP:
+		case DIRECTION_UP:
 			targetIndex = blankIndex - 3;
 			break;
-		case DOWN:
+		case DIRECTION_DOWN:
 			targetIndex = blankIndex + 3;
 			break;
 		}
@@ -153,6 +157,35 @@ PuzzleState* PuzzleState::getMovedState(int moveDirection)
 	}
 
 	newState->depth = depth + 1;
+	newState->estimatedCost = newState->calculateEstimatedCost();
 
 	return newState;
+}
+
+int PuzzleState::calculateEstimatedCost()
+{
+	int manhattanDistanceSum = 0;
+
+	for (int i = 0; i < 9; i++)
+	{
+		manhattanDistanceSum += getManhattanDistanceAt(i);
+	}
+
+	return depth + manhattanDistanceSum;
+}
+
+int PuzzleState::getManhattanDistanceAt(int idx)
+{
+	int manhattanDistance = 0;
+
+	int number = board[idx];
+	if (number == 0)
+		return 0;
+
+	int targetIdx = number - 1;
+	int xDiff = abs((idx % 3) - (targetIdx % 3));
+	int yDiff = abs((idx / 3) - (targetIdx / 3));
+	manhattanDistance = xDiff + yDiff;
+
+	return manhattanDistance;
 }

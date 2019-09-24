@@ -1,6 +1,7 @@
 #include "BfsStrategy.h"
 #include <queue>
 #include <set>
+#include <iostream>
 
 using namespace std;
 
@@ -16,18 +17,20 @@ BfsStrategy::~BfsStrategy()
 
 bool BfsStrategy::solvePuzzle(PuzzleState* puzzle)
 {
+	reset();
+
 	bool result = false;
-	queue<PuzzleState*> openQueue;
+	queue<PuzzleState*> open;
 	set<int> visited;
 
-	openQueue.push(new PuzzleState(*puzzle));
+	open.push(new PuzzleState(*puzzle));
 
 	while (visitedCount < INT_MAX)
 	{
-		// Update max open size
-		if (openQueue.size() > maxOpenSize)
+		// Update max OPEN size
+		if (open.size() > maxOpenSize)
 		{
-			maxOpenSize = openQueue.size();
+			maxOpenSize = open.size();
 		}
 
 		// Find v not visited
@@ -36,44 +39,46 @@ bool BfsStrategy::solvePuzzle(PuzzleState* puzzle)
 		bool alreadyVisited = false;
 		do
 		{
-			if (v != nullptr)
+			// Check for whether Open is empty
+			if (open.empty())
 			{
-				delete v;
-			}
-
-			if (openQueue.empty())
-			{
+				cout << "Fail to find Answer: OPEN is empty" << endl << endl;
 				return false;
 			}
 
-			v = openQueue.front();
-			openQueue.pop();
+			v = open.front();
+			open.pop();
 			vId = v->getId();
 			alreadyVisited = visited.find(vId) != visited.end();
+
 		} while (alreadyVisited);
 
-		// if answer, return success
+		visitedCount += 1;
+
+		// If answer, return success
 		if (v->isAnswer())
 		{
 			solutionLength = v->depth;
 			return true;
 		}
 
-		// Insert v into visited
+		// Insert v into VISITED
 		visited.insert(vId);
-		visitedCount += 1;
 
 		// Expand v
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < DIRECTION_MAX; i++)
 		{
 			if (v->canMove(i))
 			{
-				openQueue.push(v->getMovedState(i));
+				open.push(v->getMovedState(i));
 			}
 		}
 
 		delete v;
-	}
+		v = nullptr;
 
+	} // Cost is max
+
+	cout << "Fail to find Answer: visit count is max" << endl << endl;
 	return false;
 }

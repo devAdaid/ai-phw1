@@ -1,6 +1,7 @@
 #include "DfsStrategy.h"
 #include <stack>
 #include <set>
+#include <iostream>
 
 DfsStrategy::DfsStrategy()
 {
@@ -17,17 +18,17 @@ bool DfsStrategy::solvePuzzle(PuzzleState* puzzle)
 	reset();
 
 	bool result = false;
-	stack<PuzzleState*> openStack;
+	stack<PuzzleState*> open;
 	set<int> visited;
 
-	openStack.push(new PuzzleState(*puzzle));
+	open.push(new PuzzleState(*puzzle));
 
 	while (visitedCount < INT_MAX)
 	{
-		// Update max open size
-		if (openStack.size() > maxOpenSize)
+		// Update max OPEN size
+		if (open.size() > maxOpenSize)
 		{
-			maxOpenSize = openStack.size();
+			maxOpenSize = open.size();
 		}
 
 		// Find v not visited
@@ -36,44 +37,46 @@ bool DfsStrategy::solvePuzzle(PuzzleState* puzzle)
 		bool alreadyVisited = false;
 		do
 		{
-			if (v != nullptr)
+			// Check for whether Open is empty
+			if (open.empty())
 			{
-				delete v;
-			}
-
-			if (openStack.empty())
-			{
+				cout << "Fail to find Answer: OPEN is empty" << endl << endl;
 				return false;
 			}
 
-			v = openStack.top();
-			openStack.pop();
+			v = open.top();
+			open.pop();
 			vId = v->getId();
 			alreadyVisited = visited.find(vId) != visited.end();
+
 		} while (alreadyVisited);
 
-		// if answer, return success
+		visitedCount += 1;
+
+		// If answer, return success
 		if (v->isAnswer())
 		{
 			solutionLength = v->depth;
 			return true;
 		}
 
-		// Insert v into visited
+		// Insert v into VISITED
 		visited.insert(vId);
-		visitedCount += 1;
 
 		// Expand v
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < DIRECTION_MAX; i++)
 		{
 			if (v->canMove(i))
 			{
-				openStack.push(v->getMovedState(i));
+				open.push(v->getMovedState(i));
 			}
 		}
 
 		delete v;
-	}
+		v = nullptr;
 
+	} // Cost is max
+
+	cout << "Fail to find Answer: visit count is max" << endl << endl;
 	return false;
 }
