@@ -15,6 +15,6 @@ public:
 
 	void reset();
 	void printResult();
-	virtual bool solvePuzzle(PuzzleState* puzzle);
+	virtual bool solvePuzzle(PuzzleState& puzzle);
 };
 

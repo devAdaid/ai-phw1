@@ -26,6 +26,7 @@ public:
 	~PuzzleState();
 
 	bool operator <(const PuzzleState& p) const;
+	bool operator >(const PuzzleState& p) const;
 	void reset(int* inputs);
 	void print();
 	int getId();

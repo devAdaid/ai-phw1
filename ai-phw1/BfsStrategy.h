@@ -8,6 +8,6 @@ public:
 	BfsStrategy();
 	~BfsStrategy();
 
-	bool solvePuzzle(PuzzleState* puzzle) override;
+	bool solvePuzzle(PuzzleState& puzzle) override;
 };
 

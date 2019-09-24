@@ -8,6 +8,6 @@ public:
 	DfsStrategy();
 	~DfsStrategy();
 
-	bool solvePuzzle(PuzzleState* puzzle) override;
+	bool solvePuzzle(PuzzleState& puzzle) override;
 };
 

@@ -15,7 +15,7 @@ BfsStrategy::~BfsStrategy()
 {
 }
 
-bool BfsStrategy::solvePuzzle(PuzzleState* puzzle)
+bool BfsStrategy::solvePuzzle(PuzzleState& puzzle)
 {
 	reset();
 
@@ -23,7 +23,7 @@ bool BfsStrategy::solvePuzzle(PuzzleState* puzzle)
 	queue<PuzzleState*> open;
 	set<int> visited;
 
-	open.push(new PuzzleState(*puzzle));
+	open.push(new PuzzleState(puzzle));
 
 	while (visitedCount < INT_MAX)
 	{

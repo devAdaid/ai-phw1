@@ -13,7 +13,7 @@ DfsStrategy::~DfsStrategy()
 {
 }
 
-bool DfsStrategy::solvePuzzle(PuzzleState* puzzle)
+bool DfsStrategy::solvePuzzle(PuzzleState& puzzle)
 {
 	reset();
 
@@ -21,7 +21,7 @@ bool DfsStrategy::solvePuzzle(PuzzleState* puzzle)
 	stack<PuzzleState*> open;
 	set<int> visited;
 
-	open.push(new PuzzleState(*puzzle));
+	open.push(new PuzzleState(puzzle));
 
 	while (visitedCount < INT_MAX)
 	{

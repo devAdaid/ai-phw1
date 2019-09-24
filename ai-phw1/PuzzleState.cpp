@@ -42,6 +42,15 @@ bool PuzzleState::operator <(const PuzzleState& p) const {
 	return false;
 }
 
+bool PuzzleState::operator >(const PuzzleState& p) const {
+	if (estimatedCost > p.estimatedCost)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void PuzzleState::reset(int* inputs)
 {
 	for (int i = 0; i < 9; i++)

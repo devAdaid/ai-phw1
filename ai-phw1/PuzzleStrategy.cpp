@@ -27,7 +27,7 @@ void PuzzleStrategy::printResult()
 		<< "LEN: \t" << solutionLength << endl << endl;
 }
 
-bool PuzzleStrategy::solvePuzzle(PuzzleState* puzzle)
+bool PuzzleStrategy::solvePuzzle(PuzzleState& puzzle)
 {
 	return false;
 }

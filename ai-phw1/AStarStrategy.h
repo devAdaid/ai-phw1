@@ -8,6 +8,6 @@ public:
 	AStarStrategy();
 	~AStarStrategy();
 
-	bool solvePuzzle(PuzzleState* puzzle) override;
+	bool solvePuzzle(PuzzleState& puzzle) override;
 };
 

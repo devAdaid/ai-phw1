@@ -1,21 +1,16 @@
 #include <iostream>
 #include <vector>
-#include "MyLibrary.h";
+#include "MyLibrary.h"
 
 using namespace std;
 
 int main()
 {
-	PuzzleState *puzzle = new PuzzleState();
-
-	DfsStrategy *dfs = new DfsStrategy();
-	BfsStrategy *bfs = new BfsStrategy();
-	AStarStrategy *astar = new AStarStrategy();
-
+	// Prepare strategies
 	vector<PuzzleStrategy*> strategies;
-	strategies.push_back(dfs);
-	strategies.push_back(bfs);
-	strategies.push_back(astar);
+	strategies.push_back(new DfsStrategy());
+	strategies.push_back(new BfsStrategy());
+	strategies.push_back(new AStarStrategy());
 
 	while (true)
 	{
@@ -28,20 +23,28 @@ int main()
 		}
 		cout << endl;
 
-		// Initialize puzzle data
-		puzzle->reset(inputs);
+		// Make puzzle
+		PuzzleState puzzle = PuzzleState(inputs);
 
 		// Solve puzzle by strategies
 		for (auto strategy : strategies)
 		{
-			strategy->solvePuzzle(puzzle);
-			strategy->printResult();
+			bool isSuccess = strategy->solvePuzzle(puzzle);
+			if (isSuccess)
+			{
+				strategy->printResult();
+			}
 		}
 
 		cout << endl;
 	}
 
-	delete puzzle;
-	delete dfs;
+	// Delete strategies
+	for (auto strategy : strategies)
+	{
+		delete strategy;
+	}
+	strategies.clear();
+
 	return 0;
 }
