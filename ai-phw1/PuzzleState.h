@@ -36,7 +36,5 @@ public:
 	int getId();
 	bool canMove(int moveDirection);
 	bool isAnswer();
-	int calculateEstimatedCost();
-	int getManhattanDistanceAt(int idx);
 	PuzzleState getMovedState(int moveDirection);
 };

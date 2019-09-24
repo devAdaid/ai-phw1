@@ -64,7 +64,7 @@ void PuzzleState::reset(int* inputs)
 	}
 
 	depth = 0;
-	estimatedCost = calculateEstimatedCost();
+	estimatedCost = 0;
 }
 
 void PuzzleState::print()
@@ -165,35 +165,6 @@ PuzzleState PuzzleState::getMovedState(int moveDirection)
 	}
 
 	newState.depth = depth + 1;
-	newState.estimatedCost = newState.calculateEstimatedCost();
 
 	return newState;
-}
-
-int PuzzleState::calculateEstimatedCost()
-{
-	int manhattanDistanceSum = 0;
-
-	for (int i = 0; i < 9; i++)
-	{
-		manhattanDistanceSum += getManhattanDistanceAt(i);
-	}
-
-	return depth + manhattanDistanceSum;
-}
-
-int PuzzleState::getManhattanDistanceAt(int idx)
-{
-	int manhattanDistance = 0;
-
-	int number = board[idx];
-	if (number == 0)
-		return 0;
-
-	int targetIdx = number - 1;
-	int xDiff = abs((idx % 3) - (targetIdx % 3));
-	int yDiff = abs((idx / 3) - (targetIdx / 3));
-	manhattanDistance = xDiff + yDiff;
-
-	return manhattanDistance;
 }

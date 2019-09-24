@@ -13,8 +13,8 @@ int main()
 	vector<PuzzleStrategy*> strategies;
 	strategies.push_back(new DfsStrategy());
 	strategies.push_back(new BfsStrategy());
-	strategies.push_back(new AStarStrategy(heuristic1, "h1"));
-	strategies.push_back(new AStarStrategy(heuristic2, "h2"));
+	strategies.push_back(new AStarStrategy(heuristic1, "H1"));
+	strategies.push_back(new AStarStrategy(heuristic2, "H2"));
 
 	while (true)
 	{
@@ -65,7 +65,7 @@ int heuristic1(PuzzleState& puzzle)
 		int targetIdx = number - 1;
 		if (idx != targetIdx) outTileCount += 1;
 	}
-	return outTileCount;
+	return puzzle.depth + outTileCount;
 }
 
 // Summation of the manhattan distance to the place
